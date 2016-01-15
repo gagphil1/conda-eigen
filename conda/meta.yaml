@@ -1,16 +1,16 @@
 package:
   name: eigen
-  version: 3.2.2
+  version: 3.2.7
 
 source:
-  fn: 3.2.2.tar.bz2
-  url: http://bitbucket.org/eigen/eigen/get/3.2.2.tar.bz2
+  fn: 3.2.7.tar.bz2
+  url: http://bitbucket.org/eigen/eigen/get/3.2.7.tar.bz2
 
 
 requirements:
   build:
-    - cmake [win]
+    - cmake
   
 about:
-  home: http://assimp.sourceforge.net/
-  license: BSD
+  home: http://eigen.tuxfamily.org/
+  license: MPL2

@@ -3,24 +3,26 @@
 mkdir build
 cd build
 
-rem Need to handle Python 3.x case at some point (Visual Studio 2010)
-if %ARCH%==32 (
-  if %PY_VER% LSS 3 (
-    set CMAKE_GENERATOR="Visual Studio 9 2008"
-    set CMAKE_CONFIG="Release|Win32"
-  )
-)
-if %ARCH%==64 (
-  if %PY_VER% LSS 3 (
-    set CMAKE_GENERATOR="Visual Studio 9 2008 Win64"
-    set CMAKE_CONFIG="Release|x64"
-  )
+set CMAKE_CONFIG="Release"
+
+if "%PY_VER%" == "3.4" (
+    set GENERATOR=Visual Studio 10 2010
+) else (
+    if "%PY_VER%" == "3.5" (
+        set GENERATOR=Visual Studio 14 2015
+    ) else (
+        set GENERATOR=Visual Studio 9 2008
+    )
 )
 
-cmake .. -G%CMAKE_GENERATOR% ^
- -DCMAKE_BUILD_TYPE=Release ^
+if %ARCH% EQU 64 (
+    set GENERATOR=%GENERATOR% Win64
+)
+
+cmake .. -G"%GENERATOR%"             ^
+ -DCMAKE_BUILD_TYPE=%CMAKE_CONFIG%   ^
  -DINCLUDE_INSTALL_DIR=%LIBRARY_INC% ^
- -DLIB_INSTALL_DIR=%LIBRARY_LIB% ^
+ -DLIB_INSTALL_DIR=%LIBRARY_LIB%     ^
  -DBIN_INSTALL_DIR=%LIBRARY_BIN%
 
 cmake --build . --config %CMAKE_CONFIG% --target ALL_BUILD
